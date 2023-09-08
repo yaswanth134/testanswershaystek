@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color:rgb(55, 156, 217);
+        }
+    </style>
+    <script>
+        let j=2;
+        function bodyload(){
+            loaddata();
+        }
+        function loadnextperson(){
+            j=j+1;
+            if(j<28){
+                let content=document.getElementById('content');
+                content.innerHTML='';
+                fetch('./data.json')
+                .then((data)=>data.json())
+                .then(function(product){
+                    for(let i=j;i==j;i++){
+                        let div = document.createElement('div');
+                        div.innerHTML=`
+                            <div style="display: flex; flex-direction: row; margin:10px;">
+                                <div style="background-color: turquoise; display:flex; justify-content:center; align-contetn:center; width:30px; height:57px; border-radius: 10px 0px 0px 10px;"><h2>${i+1}</h2></div>
+                                <div>
+                                    <div style="background-color: skyblue; width:600px; padding:5px 0px 5px 10px;border-radius: 0px 10px 0px 0px;">Name: ${product[i].name}</div>
+                                    <div style="background-color: white; width:600px; padding:5px 0px 5px 10px; border-radius: 0px 0px 10px 0px;">Location: ${product[i].location}</div>
+                                </div>    
+                            </div>
+                        `;
+                        content.appendChild(div);
+                    }
+                    let leg=document.createElement('h');
+                    leg.innerHTML=`<h5 style="color:white; text-align:center;">CURRENTLY ${j+1} PEOPLE SHOWING</h5> `;
+                    content.appendChild(leg);
+                })
+            }
+            else{
+                alert("No more people!");
+            }
+        }
+        function loaddata(){
+            let content=document.getElementById('content');
+            content.innerHTML='';
+            fetch('./data.json')
+            .then((data)=>data.json())
+            .then(function(product){
+                for(let i=0;i<3;i++){
+                    let div = document.createElement('div');
+                    div.innerHTML=`
+                        <div style="display: flex; flex-direction: row; margin:10px;">
+                            <div style="background-color: turquoise; display:flex; justify-content:center; align-contetn:center; width:30px; height:57px; border-radius: 10px 0px 0px 10px;"><h2>${i+1}</h2></div>
+                            <div>
+                                <div style="background-color: skyblue; width:600px; padding:5px 0px 5px 10px;border-radius: 0px 10px 0px 0px;">Name: ${product[i].name}</div>
+                                <div style="background-color: white; width:600px; padding:5px 0px 5px 10px; border-radius: 0px 0px 10px 0px;">Location: ${product[i].location}</div>
+                            </div>    
+                        </div>
+                    `;
+                    content.appendChild(div);
+                }
+                let leg=document.createElement('h');
+                leg.innerHTML=`<h5 style="color:white; text-align:center;">CURRENTLY ${j+1} PEOPLE SHOWING</h5> `;
+                content.appendChild(leg);
+            })
+
+        }
+    </script>
+</head>
+<body onload="bodyload()">
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 100px;">
+        <div style="display: flex; justify-content: space-between; width: 700px;">
+            <h1 style="color: white;">PEOPLE DATA</h1>
+            <button style="background-color: sandybrown; margin-top: 15px; border: none;  border-radius: 20px; height: 40px; width: 150px; font-weight: bold; color: white; font-size: 15px;" onclick="loadnextperson()">NEXT PERSON</button>
+        </div>
+        <div id="content" style="width: 700px;">
+        </div>
+    </div>
+</body>
+</html>
